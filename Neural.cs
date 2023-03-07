@@ -12,12 +12,11 @@ namespace fastest_nlu_c_
         public EncodeCorpusResult encoded;
         public Status status;
         public List<Perceptron> perceptrons = new List<Perceptron>();
-        public Helpers helpers = new();
 
         public Neural(NeuralSettings? settings)
         {
             this.settings = settings != null ? settings : new NeuralSettings();
-            logFn = this.settings.log ? helpers.DefaultLogFn : null;
+            logFn = this.settings.log ? Helpers.DefaultLogFn : null;
             encoder = this.settings.encoder ?? new Encoder(this.settings.processor);
         }
 
@@ -48,7 +47,7 @@ namespace fastest_nlu_c_
             for(int i = 0; i < data.Count; i += 1)
             {
                 var d = data[i];
-                var actualOutput = helpers.RunInputPerceptron(weights, d.input);
+                var actualOutput = Helpers.RunInputPerceptron(weights, d.input);
                 var expectedOutput = d.output == perceptron.id ? 1 : 0;
                 var currentError = expectedOutput - actualOutput;
                 if(currentError != 0)
@@ -93,7 +92,7 @@ namespace fastest_nlu_c_
             var result = new List<Result>();
             foreach (var perceptron in perceptrons)
             {
-                var score = helpers.RunInputPerceptron(perceptron.weights, input);
+                var score = Helpers.RunInputPerceptron(perceptron.weights, input);
                 if(score != 0)
                 {
                     result.Add(new Result { intent= perceptron.intent, score = score });

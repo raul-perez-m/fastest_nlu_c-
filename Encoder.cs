@@ -16,10 +16,9 @@ namespace fastest_nlu_c_
         public int numFeature = 0;
         private List<string> intents;
         private Func<string, string[]> processor;
-        private Helpers helpers = new();
 
         public Encoder(Func<string, string[]>? processor) {
-            this.processor = processor != null ? processor : (str) => helpers.Tokenize(helpers.Normalize(str));
+            this.processor = processor != null ? processor : (str) => Helpers.Tokenize(Helpers.Normalize(str));
             featureMap = new Dictionary<string, int>();
             intentMap = new Dictionary<string, int>();
             intents = new List<string>();

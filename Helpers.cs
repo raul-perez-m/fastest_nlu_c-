@@ -3,9 +3,9 @@ using System.Text;
 
 namespace fastest_nlu_c_
 {
-    public class Helpers
+    public static class Helpers
     {
-        public string Normalize(string s)
+        public static string Normalize(string s)
         {
             var stFormD = s.Normalize(NormalizationForm.FormD);
             var sb = new StringBuilder();
@@ -21,18 +21,18 @@ namespace fastest_nlu_c_
 
             return sb.ToString().ToLower();
         }
-        public string[] Tokenize(string s)
+        public static string[] Tokenize(string s)
         {
             var split = s.Split(new char[] { ' ', ',', '.', '!', '?', ';', ':', ']', '(', '[', ')', '"', '¡', '¿', '/', '\u0027' }, StringSplitOptions.RemoveEmptyEntries);
             return split;
         }
 
-        public void DefaultLogFn(Status status ,long time)
+        public static void DefaultLogFn(Status status ,long time)
         {
             Console.WriteLine("Epoch {0} loss {1} time {2}ms", status.iterations, status.error, time);
         }
 
-        public double RunInputPerceptron(double[] weights, List<int> input)
+        public static double RunInputPerceptron(double[] weights, List<int> input)
         {
             double sum = 0;
             for (int x = 0; x < input.Count; x += 1)
